@@ -8,7 +8,10 @@ import io.cucumber.junit.CucumberOptions;
 @RunWith(Cucumber.class)
 @CucumberOptions(
 		features = {"features"},
-		glue = {"com.cts.bdd.steps"}
+		glue = {"com.cts.bdd.steps"},//json,html,junit
+		plugin = {"pretty","html:Report1"},
+		dryRun = false,
+		monochrome = true
 		)
 public class TestRunner {
 

@@ -11,6 +11,7 @@ import io.cucumber.junit.CucumberOptions;
 		glue = {"com.cts.bdd.steps"},//json,html,junit
 		plugin = {"pretty","html:Report1"},
 		dryRun = false,
+		tags = "@P2",
 		monochrome = true
 		)
 public class TestRunner {

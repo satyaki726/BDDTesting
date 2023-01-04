@@ -2,8 +2,11 @@ package com.cts.bdd.steps;
 
 import static org.junit.Assert.fail;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -38,4 +41,36 @@ public class EbayHome_Steps {
 	    	fail("Page doesn't navigate");
 	    }
 	}
+	
+	@When("I search for {string}")
+	public void i_search_for_iphone(String prod) {
+	   driver.findElement(By.xpath("//input[@id='gh-ac']")).sendKeys(prod);
+	   driver.findElement(By.xpath("//input[@id='gh-btn']")).click();
+	}
+	@Then("I validate atleast {int} search items present")
+	public void i_validate_atleast_search_items_present(int count) {
+	   String text = driver.findElement(By.cssSelector("h1.srp-controls__count-heading>span.BOLD:first-child")).getText().trim();
+	   String textReplaced = text.replace(",", ""); 
+	   int itemCount = Integer.parseInt(textReplaced);
+	   if(itemCount<=count) {
+		   fail("Item is less than 1000");
+	   }
+	}
+
+	@When("I search for {string} in {string} category")
+	public void i_search_for_in_category(String string, String string2) {
+		  driver.findElement(By.xpath("//input[@id='gh-ac']")).sendKeys(string);
+		  List<WebElement> findElements = driver.findElements(By.xpath("//select[@id='gh-cat']/option"));
+		  for (WebElement webElement : findElements) {
+			if(webElement.getText().trim().toLowerCase().equals(string2.toLowerCase())) {
+				webElement.click();
+				break;
+			}
+		}
+		   driver.findElement(By.xpath("//input[@id='gh-btn']")).click();
+	}
+
+
+
+	
 }

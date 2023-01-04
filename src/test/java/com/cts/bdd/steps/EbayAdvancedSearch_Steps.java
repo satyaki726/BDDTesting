@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -32,5 +33,18 @@ public class EbayAdvancedSearch_Steps {
 	    if(!expUrl.equals(actUrl))
 	    	fail("The Page is not coming as expected");
 	}
+	
+	@When("I advanced search an item")
+	public void i_advanced_search_an_item(DataTable dataTable) throws Exception {
+	   driver.findElement(By.xpath("//input[@id='_nkw']")).sendKeys(dataTable.cell(1, 0));
+	   driver.findElement(By.xpath("//input[@id='_ex_kw']")).sendKeys(dataTable.cell(1, 1));
+	   driver.findElement(By.xpath("//input[@name='_udlo']")).sendKeys(dataTable.cell(1, 2));
+	   driver.findElement(By.xpath("//input[@name='_udhi']")).sendKeys(dataTable.cell(1, 3));
+	   driver.findElement(By.xpath("//button[@id='searchBtnLowerLnk']")).click();
+	   Thread.sleep(3000);
+	}
+
+
+
 
 }

@@ -71,6 +71,24 @@ public class EbayHome_Steps {
 	}
 
 
+	@When("I click on the {string}")
+	public void i_click_on_the(String string) throws Exception {
+	   driver.findElement(By.linkText(string)).click();
+	   Thread.sleep(1000);
+	}
+	@Then("I validate the page navigates to {string} and titles contains {string}")
+	public void i_validate_the_page_navigates_to_and_titles_contains(String url, String title) {
+	    String actUrl = driver.getCurrentUrl();
+	    String actTitle = driver.getTitle();
+	    if(!actUrl.equals(url)) {
+	    	fail("Page doesn't naviagted to expected Url");
+	    }
+	    if(!actTitle.contains(title)) {
+	    	fail("Title mismatched");
+	    }
+	}
+
+
 
 	
 }
